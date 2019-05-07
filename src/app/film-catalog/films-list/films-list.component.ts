@@ -23,13 +23,23 @@ export class FilmsListComponent implements OnInit {
     }
 
     sortData() {
-        console.log(123);
-        this.sorted = !this.sorted;
         this.films = this.films.sort(function (a: { id, name, year, imgUrl, description }, b: { id, name, year, imgUrl, description }) {
             if (a.name < b.name) {
                 return -1;
             }
             if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+
+    sortDataRevert() {
+        this.films = this.films.sort(function (a: { id, name, year, imgUrl, description }, b: { id, name, year, imgUrl, description }) {
+            if (a.name > b.name) {
+                return -1;
+            }
+            if (a.name < b.name) {
                 return 1;
             }
             return 0;

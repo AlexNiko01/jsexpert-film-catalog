@@ -9,6 +9,7 @@ import {FilmItemComponent} from './film-item/film-item.component';
 import {FilmsListComponent } from './films-list/films-list.component';
 import {DetailsComponent} from './details/details.component';
 import {FilmsComponent} from './films/films.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import {FilmsComponent} from './films/films.component';
         FormsModule,
         MatCardModule,
         MatButtonModule,
-        MatGridListModule
+        MatGridListModule,
+        MatSelectModule
     ],
     declarations: [
         MainComponent,
