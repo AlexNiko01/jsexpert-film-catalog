@@ -1,0 +1,5 @@
+<mat-grid-list cols="3" rowHeight="1:2">
+    <mat-grid-tile *ngFor="let film of films">
+        <app-film-item class="mat-grid-tile" [film]="film"></app-film-item>
+    </mat-grid-tile>
+</mat-grid-list>

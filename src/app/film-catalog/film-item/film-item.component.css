@@ -1,0 +1,5 @@
+app-film-item {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+}
