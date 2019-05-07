@@ -9,6 +9,7 @@ import {FilmService} from '../film.service';
 export class FilmsListComponent implements OnInit {
 
     films: object[];
+    sorted;
 
     constructor(public filmsService: FilmService) {
     }
@@ -17,7 +18,21 @@ export class FilmsListComponent implements OnInit {
         this.loadFilms();
     }
 
-    loadFilms(){
+    loadFilms() {
         this.films = this.filmsService.getFilms();
+    }
+
+    sortData() {
+        console.log(123);
+        this.sorted = !this.sorted;
+        this.films = this.films.sort(function (a: { id, name, year, imgUrl, description }, b: { id, name, year, imgUrl, description }) {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+        });
     }
 }

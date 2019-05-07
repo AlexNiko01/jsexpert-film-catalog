@@ -1,4 +1,5 @@
 <mat-grid-list cols="3" rowHeight="1:2">
+    <button (click)="sortData()" class="mat-form-field-can-float" mat-button>Sort</button>
     <mat-grid-tile *ngFor="let film of films">
         <app-film-item class="mat-grid-tile" [film]="film"></app-film-item>
     </mat-grid-tile>

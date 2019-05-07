@@ -13,5 +13,4 @@ export class FilmItemComponent implements OnInit {
 
     ngOnInit() {
     }
-
 }
