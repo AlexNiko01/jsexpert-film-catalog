@@ -1,16 +1,19 @@
-<mat-grid-list cols="3" gutterSize="20" rowHeight="100px">
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile>
-        <mat-form-field>
-            <mat-label>Sort by</mat-label>
-            <mat-select>
-                <mat-option (click)="sortData()">a-z</mat-option>
-                <mat-option (click)="sortDataRevert()">z-a</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </mat-grid-tile>
-</mat-grid-list>
+<mat-card class="menu-card">
+    <mat-toolbar class="menu-toolbar">
+        <mat-toolbar-row>
+            <span>В избранное добавлено: 5 элементов</span>
+            <span class="example-spacer"></span>
+            <mat-form-field>
+                <mat-label>Sort by</mat-label>
+                <mat-select (selectionChange)="sortData($event)">
+                    <mat-option *ngFor="let order of orders" [value]="order.value">
+                        {{order.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</mat-card>
 
 <mat-grid-list cols="3" rowHeight="1:2">
     <mat-grid-tile *ngFor="let film of films">

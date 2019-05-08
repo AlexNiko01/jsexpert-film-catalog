@@ -1,15 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component,  OnInit} from '@angular/core';
 import {FilmService} from '../film.service';
 
 @Component({
     selector: 'app-films-list',
     templateUrl: './films-list.component.html',
-    styleUrls: ['./films-list.component.css']
+    styleUrls: ['./films-list.component.scss']
 })
 export class FilmsListComponent implements OnInit {
 
     films: object[];
-    sortDirection: boolean;
+    orders: object[] = [
+        {value: 'a-z', viewValue: 'a-z'},
+        {value: 'z-a', viewValue: 'z-a'}
+    ];
 
     constructor(public filmsService: FilmService) {
     }
@@ -22,9 +25,17 @@ export class FilmsListComponent implements OnInit {
         this.films = this.filmsService.getFilms();
     }
 
-    sortData(): void {
-        this.sortDirection = true;
-        this.films = this.films.sort((a: { id, name, year, imgUrl, description }, b: { id, name, year, imgUrl, description }) => {
+    sortData($event) {
+        if ($event.value === 'a-z') {
+            this.films = this.sortArray(this.films);
+        } else if ($event.value === 'z-a') {
+            this.films = this.sortArray(this.films).reverse();
+        }
+    }
+
+    sortArray(array: object[]): object[] {
+        let sorted: object[];
+        sorted = array.sort((a: { id, name, year, imgUrl, description }, b: { id, name, year, imgUrl, description }) => {
             if (a.name < b.name) {
                 return -1;
             }
@@ -33,12 +44,7 @@ export class FilmsListComponent implements OnInit {
             }
             return 0;
         });
+        return sorted;
     }
 
-    sortDataRevert(): void {
-        if (this.sortDirection === true) {
-            this.films.reverse();
-            this.sortDirection = false;
-        }
-    }
 }

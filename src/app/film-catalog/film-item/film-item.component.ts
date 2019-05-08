@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
     selector: 'app-film-item',
@@ -7,6 +7,7 @@ import {Component, Input, OnInit, Output} from '@angular/core';
 })
 export class FilmItemComponent implements OnInit {
     @Input() public film: object;
+    @Output() ev: EventEmitter<number> = new EventEmitter();
 
     constructor() {
     }
