@@ -9,6 +9,7 @@ import {FilmService} from '../film.service';
 export class FilmsListComponent implements OnInit {
 
     films: object[];
+    sortDirection: boolean;
 
     constructor(public filmsService: FilmService) {
     }
@@ -22,7 +23,8 @@ export class FilmsListComponent implements OnInit {
     }
 
     sortData(): void {
-        this.films = this.films.sort(function (a: { id, name, year, imgUrl, description }, b: { id, name, year, imgUrl, description }) {
+        this.sortDirection = true;
+        this.films = this.films.sort((a: { id, name, year, imgUrl, description }, b: { id, name, year, imgUrl, description }) => {
             if (a.name < b.name) {
                 return -1;
             }
@@ -34,14 +36,9 @@ export class FilmsListComponent implements OnInit {
     }
 
     sortDataRevert(): void {
-        this.films = this.films.sort(function (a: { id, name, year, imgUrl, description }, b: { id, name, year, imgUrl, description }) {
-            if (a.name > b.name) {
-                return -1;
-            }
-            if (a.name < b.name) {
-                return 1;
-            }
-            return 0;
-        });
+        if (this.sortDirection === true) {
+            this.films.reverse();
+            this.sortDirection = false;
+        }
     }
 }
