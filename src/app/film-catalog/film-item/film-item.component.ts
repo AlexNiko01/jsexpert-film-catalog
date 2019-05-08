@@ -7,11 +7,16 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class FilmItemComponent implements OnInit {
     @Input() public film: object;
-    @Output() ev: EventEmitter<number> = new EventEmitter();
+    @Output() ev = new EventEmitter();
 
     constructor() {
     }
 
     ngOnInit() {
+    }
+
+    addToWishList() {
+        console.log('child clicked');
+        this.ev.emit();
     }
 }

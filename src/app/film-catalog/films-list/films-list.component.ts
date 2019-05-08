@@ -1,4 +1,4 @@
-import {Component,  OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FilmService} from '../film.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class FilmsListComponent implements OnInit {
         {value: 'a-z', viewValue: 'a-z'},
         {value: 'z-a', viewValue: 'z-a'}
     ];
+    wishListCount: number = 0;
 
     constructor(public filmsService: FilmService) {
     }
@@ -47,4 +48,7 @@ export class FilmsListComponent implements OnInit {
         return sorted;
     }
 
+    refreshWishListCounter() {
+        this.wishListCount += 1;
+    }
 }
