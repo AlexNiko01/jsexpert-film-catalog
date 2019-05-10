@@ -69,19 +69,16 @@ export class FilmService {
         return this.films;
     }
 
-    getFilmData(id: number): Film {
-        return this.films.find((el: { id, name, year, imgUrl, description }) => {
+    getFilmDataById(id: number): Film {
+        return this.films.find((el: Film) => {
             return el.id === id;
         });
     }
 
-    searchFilmByName() {
-        console.log(this.findByFieldValue(this.films, 'name'));
-    }
-
-    private findByFieldValue(objectsArray: object[], key: string): object {
-        return objectsArray.find((el: {}) => {
-            return el.key === key;
+    searchFilmByName(value) {
+        return this.films.find((el: Film) => {
+            console.log(el);
+            return el.name === value;
         });
     }
 }

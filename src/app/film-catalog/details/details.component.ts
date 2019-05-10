@@ -18,7 +18,7 @@ export class DetailsComponent implements OnInit {
 
     ngOnInit() {
         const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-        this.filmData = this.filmService.getFilmData(id);
+        this.filmData = this.filmService.getFilmDataById(id);
     }
 
 }
