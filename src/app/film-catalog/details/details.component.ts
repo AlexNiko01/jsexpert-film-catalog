@@ -1,4 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {FilmService} from '../film.service';
+import {Film} from '../models/film';
 
 @Component({
     selector: 'details-inner',
@@ -6,10 +9,16 @@ import {Component, Input, OnInit} from '@angular/core';
     styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-    constructor() {
+
+    filmData: Film;
+
+    constructor(private route: ActivatedRoute,
+                public filmService: FilmService) {
     }
 
     ngOnInit() {
+        const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
+        this.filmData = this.filmService.getFilmData(id);
     }
 
 }

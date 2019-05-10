@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FilmService} from '../film.service';
+import {Film} from '../models/film';
 
 @Component({
     selector: 'app-films-list',
@@ -36,7 +37,7 @@ export class FilmsListComponent implements OnInit {
 
     sortArray(array: object[]): object[] {
         let sorted: object[];
-        sorted = array.sort((a: { id, name, year, imgUrl, description }, b: { id, name, year, imgUrl, description }) => {
+        sorted = array.sort((a: Film, b: Film) => {
             if (a.name < b.name) {
                 return -1;
             }

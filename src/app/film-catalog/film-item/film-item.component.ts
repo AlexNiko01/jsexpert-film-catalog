@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class FilmItemComponent implements OnInit {
     @Input() public film: object;
     @Output() ev = new EventEmitter();
+    @Output() details;
 
     constructor() {
     }
@@ -16,7 +17,6 @@ export class FilmItemComponent implements OnInit {
     }
 
     addToWishList() {
-        console.log('child clicked');
         this.ev.emit();
     }
 }

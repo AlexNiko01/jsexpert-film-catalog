@@ -1,12 +1,15 @@
 <mat-card class="example-card">
     <mat-card-header>
-        <mat-card-title>{{film.name}}</mat-card-title>
+        <mat-card-title>
+            <a href="/film/{{film.id}}"> {{film.name}}</a>
+
+        </mat-card-title>
     </mat-card-header>
     <img mat-card-image src="{{film.imgUrl}}"
          alt="{{film.name}}">
     <mat-card-content>
         <!--<details-inner [info]="film.description">-->
-        {{film.description}}
+        {{film.description.substring(1,100)}}
         <!--</details-inner>-->
     </mat-card-content>
     <mat-card-actions>
