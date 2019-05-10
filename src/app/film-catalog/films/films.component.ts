@@ -11,12 +11,11 @@ export class FilmsComponent implements OnInit {
     description = 'Middle card description';
     films: object[];
 
-    constructor(public filmsService: FilmService) {
+    constructor() {
 
     }
 
     ngOnInit() {
-        this.films = this.filmsService.getFilms();
     }
 
 }

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Film} from './models/film';
-import {log} from 'util';
 
 
 @Injectable({
@@ -23,7 +22,7 @@ export class FilmService {
         },
         {
             id: 2,
-            name: 'Чудо-женщина ',
+            name: 'Чудо-женщина',
             year: '2017',
             imgUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/fMnMonAyK3nzp1P1odIFzYoSvYe.jpg',
             description: 'Перед тем как стать Чудо-Женщиной, она была Дианой — принцессой амазонок, обученной быть непобедимой' +
@@ -65,20 +64,20 @@ export class FilmService {
         },
     ];
 
-    getFilms() {
-        return this.films;
+    getFilms(value): Array<Film> {
+        if (value === '') {
+            return this.films;
+        }
+        const result: Array<Film> = [];
+        result.push(this.films.find((el: Film) => {
+            return el.name === value;
+        }));
+        return result;
     }
 
     getFilmDataById(id: number): Film {
         return this.films.find((el: Film) => {
             return el.id === id;
-        });
-    }
-
-    searchFilmByName(value) {
-        return this.films.find((el: Film) => {
-            console.log(el);
-            return el.name === value;
         });
     }
 }

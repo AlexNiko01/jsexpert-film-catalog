@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FilmService} from '../film.service';
 import {Film} from '../models/film';
 
@@ -8,6 +8,7 @@ import {Film} from '../models/film';
     styleUrls: ['./films-list.component.scss']
 })
 export class FilmsListComponent implements OnInit {
+    @Input() search: string = '';
 
     films: object[];
     orders: object[] = [
@@ -23,8 +24,8 @@ export class FilmsListComponent implements OnInit {
         this.loadFilms();
     }
 
-    loadFilms() {
-        this.films = this.filmsService.getFilms();
+    loadFilms(): void {
+        this.films = this.filmsService.getFilms('');
     }
 
     sortData($event) {
@@ -35,7 +36,7 @@ export class FilmsListComponent implements OnInit {
         }
     }
 
-    sortArray(array: object[]): object[] {
+    private sortArray(array: object[]): object[] {
         let sorted: object[];
         sorted = array.sort((a: Film, b: Film) => {
             if (a.name < b.name) {
@@ -51,5 +52,9 @@ export class FilmsListComponent implements OnInit {
 
     refreshWishListCounter() {
         this.wishListCount += 1;
+    }
+
+    searchFilm(): void {
+        this.films = this.filmsService.getFilms(this.search);
     }
 }
