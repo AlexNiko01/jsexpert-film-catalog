@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FilmService} from '../film.service';
 import {Film} from '../models/film';
+import {log} from 'util';
 
 @Component({
     selector: 'app-films-list',
@@ -21,11 +22,11 @@ export class FilmsListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadFilms();
+        this.loadFilms(this.search);
     }
 
-    loadFilms(): void {
-        this.films = this.filmsService.getFilms('');
+    loadFilms(value): void {
+        this.films = this.filmsService.getFilms(value);
     }
 
     sortData($event) {
@@ -54,7 +55,7 @@ export class FilmsListComponent implements OnInit {
         this.wishListCount += 1;
     }
 
-    searchFilm(): void {
-        this.films = this.filmsService.getFilms(this.search);
-    }
+    // searchFilm(): void {
+    //     this.films = this.filmsService.getFilms(this.search);
+    // }
 }

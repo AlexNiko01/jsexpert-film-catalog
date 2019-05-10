@@ -69,9 +69,12 @@ export class FilmService {
             return this.films;
         }
         const result: Array<Film> = [];
-        result.push(this.films.find((el: Film) => {
+        const film = this.films.find((el: Film) => {
             return el.name === value;
-        }));
+        });
+        if (film) {
+            result.push(film);
+        }
         return result;
     }
 
