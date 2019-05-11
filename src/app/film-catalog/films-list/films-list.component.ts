@@ -22,11 +22,12 @@ export class FilmsListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadFilms(this.search);
+        this.loadFilms();
     }
 
-    loadFilms(value): void {
-        this.films = this.filmsService.getFilms(value);
+    loadFilms(): void {
+        this.search = '';
+        this.films = this.filmsService.loadFilms();
     }
 
     sortData($event) {
@@ -55,7 +56,10 @@ export class FilmsListComponent implements OnInit {
         this.wishListCount += 1;
     }
 
-    // searchFilm(): void {
-    //     this.films = this.filmsService.getFilms(this.search);
-    // }
+    searchFilm(): void {
+        if (this.search.length < 3) {
+            return;
+        }
+        this.films = this.filmsService.searchFilm(this.search);
+    }
 }

@@ -13,8 +13,9 @@
             </mat-form-field>
             <span class="example-spacer"></span>
             <label for="search">Search film:
-                <input ng-minlengt="3" [value]="search"  (input)="search=$event.target.value" (blur)="loadFilms($event.target.value)" id="search">
+                <input ng-minlengt="3" [value]="search"  (input)="search=$event.target.value" (blur)="searchFilm()" id="search">
             </label>
+            <button mat-button  (click)="loadFilms()">Reset Search</button>
         </mat-toolbar-row>
     </mat-toolbar>
 </mat-card>
