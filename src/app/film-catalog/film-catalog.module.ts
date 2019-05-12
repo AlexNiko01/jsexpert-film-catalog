@@ -11,6 +11,7 @@ import {DetailsComponent} from './details/details.component';
 import {FilmsComponent} from './films/films.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
         MatButtonModule,
         MatGridListModule,
         MatSelectModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatIconModule,
     ],
     declarations: [
         MainComponent,

@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Film} from '../models/film';
 
 @Component({
     selector: 'app-film-item',
@@ -6,7 +7,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
     styleUrls: ['./film-item.component.css']
 })
 export class FilmItemComponent implements OnInit {
-    @Input() public film: object;
+    @Input() public film: Film;
     @Output() ev = new EventEmitter();
     @Output() details;
 
@@ -17,6 +18,7 @@ export class FilmItemComponent implements OnInit {
     }
 
     addToWishList() {
+        this.film.inFavourites = !this.film.inFavourites;
         this.ev.emit();
     }
 }

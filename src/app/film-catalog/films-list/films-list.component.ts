@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FilmService} from '../film.service';
 import {Film} from '../models/film';
-import {log} from 'util';
+import {MatSelectChange} from '@angular/material';
 
 @Component({
     selector: 'app-films-list',
@@ -11,8 +11,8 @@ import {log} from 'util';
 export class FilmsListComponent implements OnInit {
     @Input() search: string = '';
 
-    films: object[];
-    orders: object[] = [
+    films: Array<Film>;
+    orders: Array<{ value, viewValue }> = [
         {value: 'a-z', viewValue: 'a-z'},
         {value: 'z-a', viewValue: 'z-a'}
     ];
@@ -23,6 +23,11 @@ export class FilmsListComponent implements OnInit {
 
     ngOnInit() {
         this.loadFilms();
+        this.films.forEach((film) => {
+            if (film.inFavourites) {
+                this.wishListCount += 1;
+            }
+        });
     }
 
     loadFilms(): void {
@@ -30,7 +35,7 @@ export class FilmsListComponent implements OnInit {
         this.films = this.filmsService.loadFilms();
     }
 
-    sortData($event) {
+    sortData($event: MatSelectChange) {
         if ($event.value === 'a-z') {
             this.films = this.sortArray(this.films);
         } else if ($event.value === 'z-a') {
@@ -38,8 +43,8 @@ export class FilmsListComponent implements OnInit {
         }
     }
 
-    private sortArray(array: object[]): object[] {
-        let sorted: object[];
+    private sortArray(array: Array<Film>): Array<Film> {
+        let sorted: Array<Film>;
         sorted = array.sort((a: Film, b: Film) => {
             if (a.name < b.name) {
                 return -1;
@@ -52,8 +57,12 @@ export class FilmsListComponent implements OnInit {
         return sorted;
     }
 
-    refreshWishListCounter() {
-        this.wishListCount += 1;
+    refreshWishListCounter(film) {
+        if (film.inFavourites === true) {
+            this.wishListCount += 1;
+        } else {
+            this.wishListCount -= 1;
+        }
     }
 
     searchFilm(): void {
@@ -62,4 +71,6 @@ export class FilmsListComponent implements OnInit {
         }
         this.films = this.filmsService.searchFilm(this.search);
     }
+
+
 }

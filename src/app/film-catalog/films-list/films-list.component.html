@@ -13,7 +13,7 @@
             </mat-form-field>
             <span class="example-spacer"></span>
             <label for="search">Search film:
-                <input ng-minlengt="3" [value]="search"  (input)="search=$event.target.value" (blur)="searchFilm()" id="search">
+                <input [value]="search"  (input)="search=$event.target.value" (keyup)="searchFilm()" id="search">
             </label>
             <button mat-button  (click)="loadFilms()">Reset Search</button>
         </mat-toolbar-row>
@@ -24,7 +24,7 @@
 
 <mat-grid-list cols="3" rowHeight="1:2"  *ngIf="films">
     <mat-grid-tile *ngFor="let film of films">
-        <app-film-item class="mat-grid-tile" [film]="film" (ev)="refreshWishListCounter()"></app-film-item>
+        <app-film-item class="mat-grid-tile" [film]="film" (ev)="refreshWishListCounter(film)"></app-film-item>
     </mat-grid-tile>
 </mat-grid-list>
 
