@@ -28,11 +28,16 @@ export class FilmsListComponent implements OnInit {
                 this.wishListCount += 1;
             }
         });
+        console.log(this.films.length);
     }
 
     loadFilms(): void {
         this.search = '';
         this.films = this.filmsService.loadFilms();
+    }
+
+    loadMoreFilms() {
+        this.filmsService.loadMore();
     }
 
     sortData($event: MatSelectChange) {

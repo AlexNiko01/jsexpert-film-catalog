@@ -133,6 +133,10 @@ export class FilmService {
         return this.films;
     }
 
+    loadMore() {
+        console.log('load more');
+    }
+
     getFilmDataById(id: number): Film {
         return this.films.find((el: Film) => {
             return el.id === id;
