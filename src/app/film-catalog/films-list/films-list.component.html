@@ -1,4 +1,4 @@
-<mat-card class="menu-card">
+<!--<mat-card class="menu-card">-->
     <mat-toolbar class="menu-toolbar">
         <mat-toolbar-row>
             <span>В избранное добавлено: {{wishListCount}} элементов</span>
@@ -15,10 +15,11 @@
             <label for="search">Search film:
                 <input [value]="search" (input)="search=$event.target.value" (keyup)="searchFilm()" id="search">
             </label>
+            <span class="example-spacer"></span>
             <button mat-button (click)="loadFilms()">Reset Search</button>
         </mat-toolbar-row>
     </mat-toolbar>
-</mat-card>
+<!--</mat-card>-->
 
 <ng-container *ngIf="!(films.length > 0)">film not found</ng-container>
 
@@ -32,3 +33,4 @@
 <mat-card>
     <button mat-raised-button color="primary" (click)="loadMoreFilms()">Load More</button>
 </mat-card>
+
