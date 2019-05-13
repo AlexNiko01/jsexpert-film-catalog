@@ -20,24 +20,25 @@
 </mat-toolbar>
 
 <ng-template *ngIf="!search || search.length < 3; then default else filmsSearch"></ng-template>
-    <ng-template #default>
-        <mat-grid-list cols="3" rowHeight="1:2">
-            <mat-grid-tile *ngFor="let film of films">
-                <app-film-item class="mat-grid-tile" [film]="film" (ev)="refreshWishListCounter(film)"></app-film-item>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </ng-template>
-    <ng-template #filmsSearch>
-        <mat-grid-list cols="{{(filmsSearchResults.length > 0) ? 3 : 1}}" rowHeight="{{(filmsSearchResults.length > 0) ? '1:2' : '100px'}}">
-            <mat-grid-tile *ngFor="let filmSearchResults of filmsSearchResults">
-                <app-film-item class="mat-grid-tile" [film]="filmSearchResults"
-                               (ev)="refreshWishListCounter(filmSearchResults)"></app-film-item>
-            </mat-grid-tile>
-            <mat-grid-tile *ngIf="!(filmsSearchResults.length > 0)">
-                film not found
-            </mat-grid-tile>
-        </mat-grid-list>
-    </ng-template>
+<ng-template #default>
+    <mat-grid-list cols="3" rowHeight="1:2">
+        <mat-grid-tile *ngFor="let film of films">
+            <app-film-item class="mat-grid-tile" [film]="film" (ev)="refreshWishListCounter(film)"></app-film-item>
+        </mat-grid-tile>
+    </mat-grid-list>
+</ng-template>
+<ng-template #filmsSearch>
+    <mat-grid-list cols="{{(filmsSearchResults.length > 0) ? 3 : 1}}"
+                   rowHeight="{{(filmsSearchResults.length > 0) ? '1:2' : '100px'}}">
+        <mat-grid-tile *ngFor="let filmSearchResults of filmsSearchResults">
+            <app-film-item class="mat-grid-tile" [film]="filmSearchResults"
+                           (ev)="refreshWishListCounter(filmSearchResults)"></app-film-item>
+        </mat-grid-tile>
+        <mat-grid-tile *ngIf="!(filmsSearchResults.length > 0)">
+            film not found
+        </mat-grid-tile>
+    </mat-grid-list>
+</ng-template>
 
 
 <mat-grid-list cols="1" rowHeight="100px" *ngIf="this.filmsQuantity > this.films.length">
