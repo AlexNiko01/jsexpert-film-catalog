@@ -9,9 +9,10 @@ import {MatSelectChange} from '@angular/material';
     styleUrls: ['./films-list.component.scss']
 })
 export class FilmsListComponent implements OnInit {
+    static pageSize: number = 3;
     @Input() search: string = '';
-
     films: Array<Film>;
+    filmsSearchResults: Array<Film>;
     orders: Array<{ value, viewValue }> = [
         {value: 'a-z', viewValue: 'a-z'},
         {value: 'z-a', viewValue: 'z-a'}
@@ -19,14 +20,13 @@ export class FilmsListComponent implements OnInit {
     currentSortingVal: string;
     wishListCount: number = 0;
     page: number = 1;
-    pageSize: number = 3;
+
     filmsQuantity: number;
 
     constructor(public filmsService: FilmService) {
     }
 
     ngOnInit() {
-        this.search = '';
         this.loadFilms();
         this.recountWishList();
         this.filmsQuantity = this.filmsService.getFilmsQuantity();
@@ -42,12 +42,17 @@ export class FilmsListComponent implements OnInit {
     }
 
     loadFilms(): void {
-        this.films = this.filmsService.loadFilms(this.page, this.pageSize);
+        this.films = this.filmsService.loadFilms(this.page, FilmsListComponent.pageSize);
+    }
+
+    resetSearch() {
+        this.search = '';
+        this.page = 1;
     }
 
     loadMoreFilms(): void {
         this.page += 1;
-        const currentFilmsPortion = this.filmsService.loadFilms(this.page, this.pageSize);
+        const currentFilmsPortion = this.filmsService.loadFilms(this.page, FilmsListComponent.pageSize);
         if (this.filmsQuantity > this.films.length) {
             this.films = this.films.concat(currentFilmsPortion);
             this.sortData(this.currentSortingVal);
@@ -90,7 +95,7 @@ export class FilmsListComponent implements OnInit {
         if (this.search.length < 3) {
             return;
         }
-        this.films = this.filmsService.searchFilm(this.search);
+        this.filmsSearchResults = this.filmsService.searchFilm(this.search);
     }
 
 }
