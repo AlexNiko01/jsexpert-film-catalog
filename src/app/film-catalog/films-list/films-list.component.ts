@@ -16,6 +16,7 @@ export class FilmsListComponent implements OnInit {
         {value: 'a-z', viewValue: 'a-z'},
         {value: 'z-a', viewValue: 'z-a'}
     ];
+    currentSortingVal: string;
     wishListCount: number = 0;
     page: number = 1;
     pageSize: number = 3;
@@ -49,14 +50,16 @@ export class FilmsListComponent implements OnInit {
         const currentFilmsPortion = this.filmsService.loadFilms(this.page, this.pageSize);
         if (this.filmsQuantity > this.films.length) {
             this.films = this.films.concat(currentFilmsPortion);
+            this.sortData(this.currentSortingVal);
             this.recountWishList();
         }
     }
 
-    sortData($event: MatSelectChange) {
-        if ($event.value === 'a-z') {
+    sortData(value) {
+        this.currentSortingVal = value;
+        if (value === 'a-z') {
             this.films = this.sortArray(this.films);
-        } else if ($event.value === 'z-a') {
+        } else if (value === 'z-a') {
             this.films = this.sortArray(this.films).reverse();
         }
     }

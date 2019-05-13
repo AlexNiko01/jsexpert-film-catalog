@@ -4,7 +4,7 @@
         <span class="example-spacer"></span>
         <mat-form-field>
             <mat-label>Sort by</mat-label>
-            <mat-select (selectionChange)="sortData($event)">
+            <mat-select (selectionChange)="sortData($event.value)">
                 <mat-option *ngFor="let order of orders" [value]="order.value">
                     {{order.viewValue}}
                 </mat-option>
