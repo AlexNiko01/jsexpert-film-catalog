@@ -93,5 +93,4 @@ export class FilmsListComponent implements OnInit {
         this.films = this.filmsService.searchFilm(this.search);
     }
 
-
 }
