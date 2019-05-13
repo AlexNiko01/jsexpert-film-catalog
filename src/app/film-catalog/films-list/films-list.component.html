@@ -1,25 +1,23 @@
-<!--<mat-card class="menu-card">-->
-    <mat-toolbar class="menu-toolbar">
-        <mat-toolbar-row>
-            <span>В избранное добавлено: {{wishListCount}} элементов</span>
-            <span class="example-spacer"></span>
-            <mat-form-field>
-                <mat-label>Sort by</mat-label>
-                <mat-select (selectionChange)="sortData($event)">
-                    <mat-option *ngFor="let order of orders" [value]="order.value">
-                        {{order.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <span class="example-spacer"></span>
-            <label for="search">Search film:
-                <input [value]="search" (input)="search=$event.target.value" (keyup)="searchFilm()" id="search">
-            </label>
-            <span class="example-spacer"></span>
-            <button mat-button (click)="loadFilms()">Reset Search</button>
-        </mat-toolbar-row>
-    </mat-toolbar>
-<!--</mat-card>-->
+<mat-toolbar class="menu-toolbar">
+    <mat-toolbar-row>
+        <span>В избранное добавлено: {{wishListCount}} элементов</span>
+        <span class="example-spacer"></span>
+        <mat-form-field>
+            <mat-label>Sort by</mat-label>
+            <mat-select (selectionChange)="sortData($event)">
+                <mat-option *ngFor="let order of orders" [value]="order.value">
+                    {{order.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span class="example-spacer"></span>
+        <label for="search">Search film:
+            <input [value]="search" (input)="search=$event.target.value" (keyup)="searchFilm()" id="search">
+        </label>
+        <span class="example-spacer"></span>
+        <button mat-button (click)="loadFilms()">Reset Search</button>
+    </mat-toolbar-row>
+</mat-toolbar>
 
 <ng-container *ngIf="!(films.length > 0)">film not found</ng-container>
 
@@ -29,8 +27,10 @@
     </mat-grid-tile>
 
 </mat-grid-list>
+<mat-grid-list cols="1" rowHeight="100px">
+    <mat-grid-tile>
+            <button mat-raised-button color="primary" (click)="loadMoreFilms()">Load More</button>
+    </mat-grid-tile>
+</mat-grid-list>
 
-<mat-card>
-    <button mat-raised-button color="primary" (click)="loadMoreFilms()">Load More</button>
-</mat-card>
 

@@ -17,27 +17,41 @@ export class FilmsListComponent implements OnInit {
         {value: 'z-a', viewValue: 'z-a'}
     ];
     wishListCount: number = 0;
+    page: number = 1;
+    pageSize: number = 3;
+    filmsLoadedСompletely: boolean = false;
 
     constructor(public filmsService: FilmService) {
     }
 
     ngOnInit() {
+        this.search = '';
         this.loadFilms();
+        this.recountWishList();
+    }
+
+    recountWishList() {
+        this.wishListCount = 0;
         this.films.forEach((film) => {
             if (film.inFavourites) {
                 this.wishListCount += 1;
             }
         });
-        console.log(this.films.length);
     }
 
     loadFilms(): void {
-        this.search = '';
-        this.films = this.filmsService.loadFilms();
+        this.films = this.filmsService.loadFilms(this.page, this.pageSize);
     }
 
     loadMoreFilms() {
-        this.filmsService.loadMore();
+        this.page += 1;
+        const currentFilmsPortion = this.filmsService.loadFilms(this.page, this.pageSize);
+        if (currentFilmsPortion) {
+            this.recountWishList();
+        } else {
+            this.filmsLoadedСompletely = true;
+        }
+        this.films = this.films.concat(currentFilmsPortion);
     }
 
     sortData($event: MatSelectChange) {

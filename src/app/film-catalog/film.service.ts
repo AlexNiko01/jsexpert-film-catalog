@@ -129,12 +129,10 @@ export class FilmService {
         },
     ];
 
-    loadFilms(): Array<Film> {
-        return this.films;
-    }
-
-    loadMore() {
-        console.log('load more');
+    loadFilms(page, pageSize): Array<Film> {
+        const end = pageSize * page;
+        const start = end - pageSize;
+        return this.films.slice(start, end);
     }
 
     getFilmDataById(id: number): Film {
