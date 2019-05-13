@@ -19,7 +19,7 @@ export class FilmsListComponent implements OnInit {
     wishListCount: number = 0;
     page: number = 1;
     pageSize: number = 3;
-    filmsLoadedСompletely: boolean = false;
+    filmsQuantity: number;
 
     constructor(public filmsService: FilmService) {
     }
@@ -28,6 +28,7 @@ export class FilmsListComponent implements OnInit {
         this.search = '';
         this.loadFilms();
         this.recountWishList();
+        this.filmsQuantity = this.filmsService.getFilmsQuantity();
     }
 
     recountWishList() {
@@ -43,15 +44,13 @@ export class FilmsListComponent implements OnInit {
         this.films = this.filmsService.loadFilms(this.page, this.pageSize);
     }
 
-    loadMoreFilms() {
+    loadMoreFilms(): void {
         this.page += 1;
         const currentFilmsPortion = this.filmsService.loadFilms(this.page, this.pageSize);
-        if (currentFilmsPortion) {
+        if (this.filmsQuantity > this.films.length) {
+            this.films = this.films.concat(currentFilmsPortion);
             this.recountWishList();
-        } else {
-            this.filmsLoadedСompletely = true;
         }
-        this.films = this.films.concat(currentFilmsPortion);
     }
 
     sortData($event: MatSelectChange) {

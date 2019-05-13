@@ -27,9 +27,9 @@
     </mat-grid-tile>
 
 </mat-grid-list>
-<mat-grid-list cols="1" rowHeight="100px">
+<mat-grid-list cols="1" rowHeight="100px" *ngIf="this.filmsQuantity > this.films.length">
     <mat-grid-tile>
-            <button mat-raised-button color="primary" (click)="loadMoreFilms()">Load More</button>
+        <button mat-raised-button color="primary" (click)="loadMoreFilms()">Load More</button>
     </mat-grid-tile>
 </mat-grid-list>
 

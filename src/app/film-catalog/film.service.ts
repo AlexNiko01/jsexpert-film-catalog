@@ -151,4 +151,8 @@ export class FilmService {
         }
         return result;
     }
+
+    getFilmsQuantity() {
+        return this.films.length;
+    }
 }
