@@ -8,7 +8,7 @@ import {Film} from '../models/film';
 })
 export class FilmItemComponent implements OnInit {
     @Input() public film: Film;
-    @Output() ev = new EventEmitter();
+    @Output() add = new EventEmitter();
     @Output() details;
 
     constructor() {
@@ -19,6 +19,6 @@ export class FilmItemComponent implements OnInit {
 
     addToWishList() {
         this.film.inFavourites = !this.film.inFavourites;
-        this.ev.emit();
+        this.add.emit();
     }
 }

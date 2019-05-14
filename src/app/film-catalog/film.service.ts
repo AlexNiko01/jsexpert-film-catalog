@@ -31,7 +31,8 @@ export class FilmService {
                 'серьезном конфликте, бушующем во внешнем мире, Диана покидает свой дом, чтобы справиться ' +
                 'с этой угрозой',
             inFavourites: true
-        },
+        }
+        ,
         {
             id: 3,
             name: 'Звёздные Войны: Последние джеда',
@@ -154,5 +155,9 @@ export class FilmService {
 
     getFilmsQuantity() {
         return this.films.length;
+    }
+
+    getFilms() {
+        return this.films;
     }
 }

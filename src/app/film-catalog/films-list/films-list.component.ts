@@ -10,9 +10,8 @@ import {MatSelectChange} from '@angular/material';
 })
 export class FilmsListComponent implements OnInit {
     static pageSize: number = 3;
-    @Input() search: string = '';
+    search: string = '';
     films: Array<Film>;
-    filmsSearchResults: Array<Film>;
     orders: Array<{ value, viewValue }> = [
         {value: 'a-z', viewValue: 'a-z'},
         {value: 'z-a', viewValue: 'z-a'}
@@ -20,7 +19,7 @@ export class FilmsListComponent implements OnInit {
     currentSortingVal: string;
     wishListCount: number = 0;
     page: number = 1;
-
+    hideLoadMore = false;
     filmsQuantity: number;
 
     constructor(public filmsService: FilmService) {
@@ -34,7 +33,8 @@ export class FilmsListComponent implements OnInit {
 
     recountWishList() {
         this.wishListCount = 0;
-        this.films.forEach((film) => {
+        const allFilms = this.filmsService.getFilms();
+        allFilms.forEach((film) => {
             if (film.inFavourites) {
                 this.wishListCount += 1;
             }
@@ -48,6 +48,8 @@ export class FilmsListComponent implements OnInit {
     resetSearch() {
         this.search = '';
         this.page = 1;
+        this.loadFilms();
+        this.hideLoadMore = false;
     }
 
     loadMoreFilms(): void {
@@ -56,7 +58,9 @@ export class FilmsListComponent implements OnInit {
         if (this.filmsQuantity > this.films.length) {
             this.films = this.films.concat(currentFilmsPortion);
             this.sortData(this.currentSortingVal);
-            this.recountWishList();
+        }
+        if (this.films.length === this.filmsQuantity) {
+            this.hideLoadMore = true;
         }
     }
 
@@ -92,10 +96,11 @@ export class FilmsListComponent implements OnInit {
     }
 
     searchFilm(): void {
+        this.hideLoadMore = true;
         if (this.search.length < 3) {
             return;
         }
-        this.filmsSearchResults = this.filmsService.searchFilm(this.search);
+        this.films = this.filmsService.searchFilm(this.search);
     }
 
 }
