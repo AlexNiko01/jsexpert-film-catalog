@@ -9,8 +9,8 @@ import {MatSelectChange} from '@angular/material';
     styleUrls: ['./films-list.component.scss']
 })
 export class FilmsListComponent implements OnInit {
-    @Input() search: string = '';
-
+    static pageSize: number = 3;
+    search: string = '';
     films: Array<Film>;
     orders: Array<{ value, viewValue }> = [
         {value: 'a-z', viewValue: 'a-z'},
@@ -19,39 +19,42 @@ export class FilmsListComponent implements OnInit {
     currentSortingVal: string;
     wishListCount: number = 0;
     page: number = 1;
-    pageSize: number = 3;
+    hideLoadMore = false;
     filmsQuantity: number;
 
     constructor(public filmsService: FilmService) {
     }
 
     ngOnInit() {
-        this.search = '';
         this.loadFilms();
         this.recountWishList();
         this.filmsQuantity = this.filmsService.getFilmsQuantity();
     }
 
     recountWishList() {
-        this.wishListCount = 0;
-        this.films.forEach((film) => {
-            if (film.inFavourites) {
-                this.wishListCount += 1;
-            }
-        });
+        this.wishListCount = this.filmsService.getFavouritesQuantity();
     }
 
     loadFilms(): void {
-        this.films = this.filmsService.loadFilms(this.page, this.pageSize);
+        this.films = this.filmsService.loadFilms(this.page, FilmsListComponent.pageSize);
+    }
+
+    resetSearch() {
+        this.search = '';
+        this.page = 1;
+        this.loadFilms();
+        this.hideLoadMore = false;
     }
 
     loadMoreFilms(): void {
         this.page += 1;
-        const currentFilmsPortion = this.filmsService.loadFilms(this.page, this.pageSize);
+        const currentFilmsPortion = this.filmsService.loadFilms(this.page, FilmsListComponent.pageSize);
         if (this.filmsQuantity > this.films.length) {
             this.films = this.films.concat(currentFilmsPortion);
             this.sortData(this.currentSortingVal);
-            this.recountWishList();
+        }
+        if (this.films.length === this.filmsQuantity) {
+            this.hideLoadMore = true;
         }
     }
 
@@ -87,11 +90,11 @@ export class FilmsListComponent implements OnInit {
     }
 
     searchFilm(): void {
+        this.hideLoadMore = true;
         if (this.search.length < 3) {
             return;
         }
         this.films = this.filmsService.searchFilm(this.search);
     }
-
 
 }
