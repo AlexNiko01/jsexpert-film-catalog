@@ -156,7 +156,7 @@ export class FilmService {
     getFilmsQuantity(): number {
         return this.films.length;
     }
-    getFavourites(): number {
+    getFavouritesQuantity(): number {
         let wishListQuantity: number = 0;
         this.films.forEach((film) => {
             if (film.inFavourites) {

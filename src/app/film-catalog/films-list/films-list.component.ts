@@ -32,7 +32,7 @@ export class FilmsListComponent implements OnInit {
     }
 
     recountWishList() {
-        this.wishListCount = this.filmsService.getFavourites();
+        this.wishListCount = this.filmsService.getFavouritesQuantity();
     }
 
     loadFilms(): void {
