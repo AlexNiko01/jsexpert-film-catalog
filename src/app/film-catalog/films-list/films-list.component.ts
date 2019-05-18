@@ -32,13 +32,7 @@ export class FilmsListComponent implements OnInit {
     }
 
     recountWishList() {
-        this.wishListCount = 0;
-        const allFilms = this.filmsService.getFilms();
-        allFilms.forEach((film) => {
-            if (film.inFavourites) {
-                this.wishListCount += 1;
-            }
-        });
+        this.wishListCount = this.filmsService.getFavourites();
     }
 
     loadFilms(): void {

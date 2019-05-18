@@ -142,7 +142,7 @@ export class FilmService {
         });
     }
 
-    searchFilm(value) {
+    searchFilm(value): Array<Film> {
         const result: Array<Film> = [];
         const film = this.films.find((el: Film) => {
             return el.name.includes(value);
@@ -153,11 +153,17 @@ export class FilmService {
         return result;
     }
 
-    getFilmsQuantity() {
+    getFilmsQuantity(): number {
         return this.films.length;
     }
-
-    getFilms() {
-        return this.films;
+    getFavourites(): number {
+        let wishListQuantity: number = 0;
+        this.films.forEach((film) => {
+            if (film.inFavourites) {
+                wishListQuantity += 1;
+            }
+        });
+        return wishListQuantity;
     }
+
 }
